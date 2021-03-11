@@ -6,6 +6,7 @@
         <router-link to="/dashboard">{{ $t("message.dashboard") }}</router-link>
         |
         <router-link to="/branches">{{ $t("message.branches") }}</router-link>
+        <router-link to="/login">login</router-link>
       </div>
       <div class="lang-container">
         <select v-model="lang" @change="setLang" class="select-lang">

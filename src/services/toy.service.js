@@ -1,12 +1,12 @@
-import { utilService } from './util.service.js';
+// import { utilService } from './util.service.js';
 import {httpService} from './http.service.js'
-import axios from 'axios';
+// import axios from 'axios';
 
 let gFilterBy = { name: '', inStock: 'all', types: [], sortBy: 'name', pageDiff: 0 };
-const KEY = 'toysDB';
-const TOY_URL = process.env.NODE_ENV !== 'development' 
-            ? '/api/toy/' 
-            : '//localhost:3030/api/toy/';
+// const KEY = 'toysDB';
+// const TOY_URL = process.env.NODE_ENV !== 'development' 
+//             ? '/api/toy/' 
+//             : '//localhost:3030/api/toy/';
 
 export const toyService = {
     query,
