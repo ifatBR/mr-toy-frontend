@@ -5,18 +5,18 @@
     </div>
     <div class="info-container flex column justify-center align-start">
       <h3>
-        {{ $t("message.price") }}: <span>{{ toy.price }}</span>
+        {{ $t("message.price") }}: <span>{{$t("message.priceSymb")}}{{ toy.price }}</span>
       </h3>
       <h2>{{ toy.name }}</h2>
 
       <div class="btn-container flex space-between">
         <div>
-          <router-link :to="'/details/' + toy._id" class="btn details">{{
-            $t("message.details")
-          }}</router-link>
-          <router-link :to="'/edit/' + toy._id" class="btn edit">{{
-            $t("message.edit")
-          }}</router-link>
+          <router-link :to="'/details/' + toy._id" class="btn details">
+          {{$t("message.details")}}
+          </router-link>
+          <router-link :to="'/edit/' + toy._id" class="btn edit">
+          {{$t("message.edit")}}
+            </router-link>
         </div>
         <button @click="remove(toy._id)" class="btn remove"></button>
       </div>

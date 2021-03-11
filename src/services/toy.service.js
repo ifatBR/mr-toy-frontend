@@ -6,7 +6,7 @@ let gFilterBy = { name: '', inStock: 'all', types: [], sortBy: 'name', pageDiff:
 const KEY = 'toysDB';
 const TOY_URL = process.env.NODE_ENV !== 'development' 
             ? '/api/toy/' 
-            : '//localhost:3000/api/toy/';
+            : '//localhost:3030/api/toy/';
 
 export const toyService = {
     query,
@@ -51,7 +51,8 @@ function save(toy) {
     if (toy._id)
         return axios
             .put(TOY_URL + toy._id, toy)
-            .then(({data}) => data)
+            .then(({data}) => {
+                return data})
             .catch((err) => err);
     return axios
         .post(TOY_URL, toy)

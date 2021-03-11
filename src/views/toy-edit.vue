@@ -1,16 +1,16 @@
 <template>
-  <section v-if="toyToEdit" class="toy-edit">
+  <section v-if="toyToEdit" class="toy-edit" :style="direction">
     <div class="edit-input">
-      <label>Toy name: </label><input type="text" v-model="toyToEdit.name" />
-      <label>Price: </label><input type="number" v-model="toyToEdit.price" />
-      <label>Type:</label>
+      <label>{{ $t("message.toy-name") }}: </label><input type="text" v-model="toyToEdit.name" />
+      <label>{{ $t("message.price") }}: </label><input type="number" v-model="toyToEdit.price" />
+      <label>{{ $t("message.type") }}:</label>
       <select v-model="toyToEdit.type">
         <option :value="type" v-for="type in types" :key="type + 'e'">
           {{ type }}
         </option>
       </select>
 
-      <label>In stock:</label>
+      <label>{{ $t("message.in-stock") }}:</label>
       <input
         class="switch"
         type="checkbox"
@@ -20,8 +20,12 @@
     </div>
     <div class="btn-edit flex column align-center justify-center">
       <!-- <validate/> -->
-      <button @click="save" class="btn save confirm">save</button>
-      <router-link to="/" class="btn back">Back</router-link>
+      <button @click="save" class="btn save confirm">{{
+        $t("message.save")
+      }}</button>
+      <router-link to="/" class="btn back">{{
+        $t("message.back")
+      }}</router-link>
     </div>
   </section>
 </template>
@@ -67,6 +71,9 @@ export default {
     },
     isInStock() {
       return this.toyToEdit.inStock ? true : null;
+    },
+    direction() {
+      return this.$store.getters.direction;
     },
   },
   components: {

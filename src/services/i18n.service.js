@@ -16,8 +16,13 @@ const messages = {
             'add-toy': 'Add toy',
             'in-stock': 'In stock',
             name: 'Name',
+            'toy-name': 'Toy name',
             'sort-by': 'Sort by',
             type: 'Type',
+            priceSymb:'$',
+            'created-at':"Created at",
+            back:'Back',
+            save:'Save'
         },
     },
     he: {
@@ -33,8 +38,13 @@ const messages = {
             'add-toy': 'הוסף',
             'in-stock': 'במלאי',
             name: 'שם',
+            'toy-name':'שם המוצר',
             'sort-by': 'מיין לפי',
             type: 'סוג',
+            priceSymb:'₪',
+            'created-at':"נוצר ב",
+            back:'חזרה',
+            save:'שמור'
         },
     },
 };

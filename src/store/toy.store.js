@@ -30,11 +30,9 @@ export const toyStore = {
             state.allToys = payload.allToys
         },
         addToy(state, { toy }) {
-            state.toys.pop();
-            state.toys.unshift(toy);
+            state.toys.push(toy);
         },
         updateToy(state, { toy }) {
-            console.log('toy:', toy)
             const idx = state.toys.findIndex((t) => t._id === toy._id);
             state.toys.splice(idx, 1, toy);
         },
@@ -62,7 +60,6 @@ export const toyStore = {
         },
 
         saveToy(context, { toy }) {
-            // TODO: support EDIT
             const type = toy._id ? 'updateToy' : 'addToy';
             return toyService
                 .save(toy)
