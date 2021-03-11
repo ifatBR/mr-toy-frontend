@@ -30,7 +30,7 @@ export const toyStore = {
             state.allToys = payload.allToys
         },
         addToy(state, { toy }) {
-            state.toys.push(toy);
+            // state.toys.push(toy);
         },
         updateToy(state, { toy }) {
             const idx = state.toys.findIndex((t) => t._id === toy._id);
@@ -60,11 +60,13 @@ export const toyStore = {
         },
 
         saveToy(context, { toy }) {
-            const type = toy._id ? 'updateToy' : 'addToy';
+            // const type = toy._id ? 'updateToy' : 'addToy';
             return toyService
                 .save(toy)
                 .then((savedToy) => {
-                    context.commit({ type, toy: savedToy });
+                    // context.commit({ type, toy: savedToy });
+                    if(toy._id) context.commit({ type:'updateToy', toy: savedToy })
+
                 })
                 .catch((err) => {
                     console.log('Store: Cannot save toy', err);
@@ -77,6 +79,7 @@ export const toyStore = {
                 .then(() => {
                     context.commit(payload);
                 })
+                .then(() => context.dispatch('loadToys'))
                 .catch((err) => {
                     console.log('Store: Cannot remove toy', err);
                     throw new Error('Cannot remove toy');
