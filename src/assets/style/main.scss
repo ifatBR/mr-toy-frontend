@@ -1,0 +1,22 @@
+// Setup
+@import './setup/mixins';
+@import './setup/variables';
+@import './setup/functions';
+@import './setup/typography';
+
+// Basic
+@import './basic/helpers';
+@import './basic/base';
+@import './basic/layout';
+
+//Views
+@import './views/toy-app.scss';
+@import './views/toy-edit.scss';
+@import './views/toy-details.scss';
+
+// Cmps
+@import './cmps/toy-list.scss';
+@import './cmps/toggle-btn.scss';
+@import './cmps/toy-filter.scss';
+@import './cmps/google-map.scss';
+@import './cmps/dashboard.scss';

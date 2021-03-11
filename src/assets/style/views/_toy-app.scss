@@ -1,0 +1,51 @@
+
+.toy-app {
+    position:relative;
+    .loader {
+        width: 150px;
+        position:absolute;
+        top:150px;
+        left:50%;
+        transform: translateX(-50%);
+    }
+    .btn-container {
+        width: 300px;
+        margin:auto;
+        .add{
+            width: 5em;
+            text-align: center;
+            margin-bottom:30px;
+        }
+        .next,
+        .prev {
+            font-size: 1em;
+            color: $color3;
+            font-weight: bold;
+        }
+    }
+
+    input{
+        width: 150px;
+    }
+}
+
+.btn.confirm {
+    font-size: 1.1em;;
+
+    background-color: desaturate($color6, 20%);
+    color: white;
+    text-decoration: none;
+    ;
+    border-radius: 2em;
+    padding: 5px 10px;
+
+    &:hover {
+        background-color: $color6;
+    }
+}
+
+.btn.back{
+    text-decoration: none;
+    color: $color3;
+    text-align: center;
+}

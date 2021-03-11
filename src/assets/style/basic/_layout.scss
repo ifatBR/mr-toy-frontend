@@ -1,0 +1,12 @@
+.main-container{
+    width:1060px;
+    margin:0 auto;
+}
+
+.preview-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+    grid-auto-rows: 300px;
+    grid-gap:30px;
+    margin:auto;
+}

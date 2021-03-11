@@ -1,0 +1,24 @@
+.toy-edit{
+    width: 300px;
+    margin:auto;
+
+    .edit-input {
+        padding-top: 50px;
+        display:grid;
+        grid-template-columns: 100px 200px;;
+        text-align: left;
+        >* {
+            margin-bottom: 20px;
+        }
+        margin-bottom:35px;
+        .switch{
+            justify-self: center;
+        }
+    }
+    
+    .btn-edit{
+        .btn.save{
+            margin-bottom: 15px;
+        }
+    }
+}
