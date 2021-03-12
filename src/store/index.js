@@ -16,6 +16,10 @@ export default new Vuex.Store({
         lang(state) {
             return state.lang;
         },
+        getLocale(state){ 
+            if(state.lang ==='en') return {locale:'en-US' , currency:"USD", multiplier:1}
+            return {locale:'he-IL', currency:"ILS", multiplier:3.5}
+        },
         direction(state) {
             if (state.lang === 'he') return { direction: 'rtl', 'text-align': 'right' };
             return { direction: 'ltr', 'text-align': 'left' };

@@ -6,7 +6,7 @@
     <div class="info-container flex column justify-center align-start">
       <h3>
         {{ $t("message.price") }}:
-        <span>{{ $t("message.priceSymb") }}{{ toy.price }}</span>
+        <span>{{formattedPrice}}</span>
       </h3>
       <h2>{{ toy.name }}</h2>
 
@@ -46,6 +46,11 @@ export default {
     },
     isAdmin() {
       return this.$store.getters.isAdmin;
+    },
+    formattedPrice() {
+      const { locale, currency, multiplier } = this.$store.getters.getLocale;
+      const price =  this.toy.price * multiplier;
+      return 'locale',price.toLocaleString(locale, {style:"currency", currency})
     },
   },
 };

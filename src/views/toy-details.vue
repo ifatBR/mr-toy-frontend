@@ -7,7 +7,7 @@
         <!-- <h3>id:</h3>
         <h4>{{ toy._id }}</h4> -->
         <h3>{{ $t("message.price") }}</h3>
-        <h4>{{ $t("message.priceSymb") }}{{ toy.price }}</h4>
+        <h4>{{ formattedPrice }}</h4>
         <h3>{{ $t("message.type") }}:</h3>
         <h4>{{ toy.type }}</h4>
         <h3>{{ $t("message.in-stock") }}:</h3>
@@ -50,6 +50,13 @@ export default {
     },
     direction() {
       return this.$store.getters.direction;
+    },
+    formattedPrice() {
+      const { locale, currency, multiplier } = this.$store.getters.getLocale;
+      const price = this.toy.price * multiplier;
+      return (
+        "locale", price.toLocaleString(locale, { style: "currency", currency })
+      );
     },
   },
 };

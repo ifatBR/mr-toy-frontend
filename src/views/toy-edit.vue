@@ -1,8 +1,15 @@
 <template>
-  <section v-if="toyToEdit" class="toy-edit" :style="direction">
+  <form
+    v-if="toyToEdit"
+    @submit.prevent="save"
+    class="toy-edit"
+    :style="direction"
+  >
     <div class="edit-input">
-      <label>{{ $t("message.toy-name") }}: </label><input type="text" v-model="toyToEdit.name" />
-      <label>{{ $t("message.price") }}: </label><input type="number" v-model="toyToEdit.price" />
+      <label>{{ $t("message.toy-name") }}: </label
+      ><input type="text" v-model="toyToEdit.name" />
+      <label>{{ $t("message.price") }} ({{$t("message.priceSymb")}}): </label
+      ><input type="number" v-model.number="price" value="formattedPrice" />
       <label>{{ $t("message.type") }}:</label>
       <select v-model="toyToEdit.type">
         <option :value="type" v-for="type in types" :key="type + 'e'">
@@ -20,14 +27,12 @@
     </div>
     <div class="btn-edit flex column align-center justify-center">
       <!-- <validate/> -->
-      <button @click="save" class="btn save confirm">{{
-        $t("message.save")
-      }}</button>
+      <button class="btn save confirm">{{ $t("message.save") }}</button>
       <router-link to="/toy" class="btn back">{{
         $t("message.back")
       }}</router-link>
     </div>
-  </section>
+  </form>
 </template>
 
 <script>
@@ -41,27 +46,30 @@ export default {
     return {
       toyToEdit: toyService.getEmptyToy(),
       types: null,
+      price: null,
     };
   },
   created() {
     const toyId = this.$route.params.toyId;
     if (toyId) {
-      toyService
-        .getById(toyId)
-        .then((toy) => (this.toyToEdit = JSON.parse(JSON.stringify(toy))));
+      toyService.getById(toyId).then((toy) => {
+        this.toyToEdit = JSON.parse(JSON.stringify(toy));
+        this.price = this.formattedPrice;
+      });
     }
     this.types = this.$store.getters.types;
   },
   methods: {
     save() {
+      this.toyToEdit.price = this.unformattedPrice;
       this.$store
         .dispatch({ type: "saveToy", toy: this.toyToEdit })
         .then(() => {
           this.toyToEdit = toyService.getEmptyToy();
           this.$router.push("/toy");
-          this.toyToEdit._id? showMsg("Saved changes") : showMsg("Toy added")
+          this.toyToEdit._id ? showMsg("Saved changes") : showMsg("Toy added");
         })
-        .catch((err) => showMsg(err));
+        .catch((err) => showMsg("Can't save toy", danger));
     },
   },
 
@@ -74,6 +82,19 @@ export default {
     },
     direction() {
       return this.$store.getters.direction;
+    },
+    formattedPrice() {
+      const { multiplier } = this.$store.getters.getLocale;
+      return this.toyToEdit.price * multiplier;
+    },
+    unformattedPrice(){
+      const { multiplier } = this.$store.getters.getLocale;
+      return this.price / multiplier;
+    }
+  },
+  watch: {
+    "$store.getters.lang"() {
+      this.price = this.formattedPrice;
     },
   },
   components: {
