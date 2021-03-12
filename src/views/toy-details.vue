@@ -15,9 +15,12 @@
         <h3>{{ $t("message.created-at") }}:</h3>
         <h4>{{ date }}</h4>
       </div>
+      <div class="flex space-between align-center">
       <router-link class="btn back" to="/toy">{{
         $t("message.back")
       }}</router-link>
+      <button @click="addReview" class="btn confirm">Add review</button>
+      </div>
     </div>
     <div class="img-container">
       <img class="details-img" :src="imgSrc" />
@@ -39,6 +42,11 @@ export default {
   created() {
     const toyId = this.$route.params.toyId;
     toyService.getById(toyId).then((toy) => (this.toy = toy));
+  },
+  methods: {
+    addReview() {
+      this.$router.push("/details/review/" + this.toy._id);
+    },
   },
   computed: {
     date() {

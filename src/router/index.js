@@ -6,6 +6,7 @@ import toyEdit from '../views/toy-edit.vue'
 import dashboard from '../views/dashboard.vue'
 import toyBranches from '../views/toy-branches.vue'
 import login from '../views/login.vue'
+import toyReview from'@/views/toy-review.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -28,6 +29,11 @@ const routes = [
     path: '/details/:toyId',
     name: 'details',
     component: toyDetails
+  },
+  {
+    path: '/details/review/:toyId',
+    name: 'review',
+    component: toyReview
   },
   {
     path: '/edit/:toyId?',

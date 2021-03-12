@@ -91,5 +91,9 @@ export const toyStore = {
             context.dispatch({type:'loadToys'})
                 .then(() => context.filterBy.pageDiff = 0)
         },
+        saveReview(context, {review,toy}){
+            console.log(review);
+            console.log(toy);
+        }
     },
 };

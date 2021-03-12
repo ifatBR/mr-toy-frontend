@@ -7,11 +7,11 @@
   >
     <div class="edit-input">
       <label>{{ $t("message.toy-name") }}: </label
-      ><input type="text" v-model="toyToEdit.name" />
+      ><input type="text" v-model="toyToEdit.name" required/>
       <label>{{ $t("message.price") }} ({{$t("message.priceSymb")}}): </label
-      ><input type="number" v-model.number="price" value="formattedPrice" />
+      ><input type="number" v-model.number="price" value="formattedPrice" required/>
       <label>{{ $t("message.type") }}:</label>
-      <select v-model="toyToEdit.type">
+      <select v-model="toyToEdit.type" required>
         <option :value="type" v-for="type in types" :key="type + 'e'">
           {{ type }}
         </option>
