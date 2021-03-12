@@ -15,7 +15,7 @@
         <h3>{{ $t("message.created-at") }}:</h3>
         <h4>{{ date }}</h4>
       </div>
-      <router-link class="btn back" to="/">{{
+      <router-link class="btn back" to="/toy">{{
         $t("message.back")
       }}</router-link>
     </div>

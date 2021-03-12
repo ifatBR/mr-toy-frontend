@@ -75,6 +75,7 @@ function getEmptyToy(name = '', price = 100, type, createdAt) {
         type,
         createdAt,
         inStock: null,
+        reviews:null
     };
 }
 

@@ -23,7 +23,7 @@
       <button @click="save" class="btn save confirm">{{
         $t("message.save")
       }}</button>
-      <router-link to="/" class="btn back">{{
+      <router-link to="/toy" class="btn back">{{
         $t("message.back")
       }}</router-link>
     </div>
@@ -58,8 +58,8 @@ export default {
         .dispatch({ type: "saveToy", toy: this.toyToEdit })
         .then(() => {
           this.toyToEdit = toyService.getEmptyToy();
-          this.$router.push("/");
-          showMsg("Saved changes");
+          this.$router.push("/toy");
+          this.toyToEdit._id? showMsg("Saved changes") : showMsg("Toy added")
         })
         .catch((err) => showMsg(err));
     },

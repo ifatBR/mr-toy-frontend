@@ -13,15 +13,13 @@
     h2 {
         font-size: 1.3em;
         color: $color5;
-        margin-bottom:30px;
+        margin-bottom:20px;
         padding-bottom:15px;
-        // border-bottom: 1px solid $color2;
     }
     .details-info {
         display: grid;
         grid-template-columns: 120px 100px;
         
-        text-align: left;
         >* {
             margin-bottom: 15px;
             padding-bottom:15px;

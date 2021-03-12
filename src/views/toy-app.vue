@@ -7,7 +7,7 @@
         <toy-filter />
       </toy-list>
       <div class="btn-container flex column align-center">
-        <router-link class="btn add confirm" to="/edit">{{
+        <router-link v-if="isAdmin" class="btn add confirm" to="/edit">{{
           $t("message.add-toy")
         }}</router-link>
         <div class="flex">
@@ -48,6 +48,9 @@ export default {
     },
     isLoading() {
       return this.$store.getters.isLoading;
+    },
+    isAdmin() {
+      return this.$store.getters.isAdmin;
     },
   },
   components: {

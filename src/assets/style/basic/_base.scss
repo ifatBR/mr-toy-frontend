@@ -60,6 +60,9 @@ img {
 
 
 nav {
+    display:grid;
+    grid-template-columns: 300px 1fr 300px;
+
     text-align: center;
     background-color: #fff;
     box-shadow: 0 2px 7px rgba($color5, 0.3);
@@ -68,9 +71,10 @@ nav {
     .links-container{
         flex-grow: 1;
     }
-    .lang-container{
-        display:flex;
-        align-items: center;
+  
+    h2{
+        text-align: left;
+        font-size: 1.2em;
     }
 
     a {
@@ -89,6 +93,16 @@ nav {
         &:hover {
             color: $color3;
         }
+    }
+    .ctrls-container{
+        justify-content: flex-end;
+    }
+    .logout{
+        margin-inline-end: 20px;
+    }
+    .lang-container{
+        display:flex;
+        align-items: center;
     }
 }
 

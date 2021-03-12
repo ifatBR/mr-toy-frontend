@@ -1,33 +1,74 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import {toyStore} from './toy.store.js'
-import {i18nService} from '../services/i18n.service.js'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import { toyStore } from './toy.store.js';
+import { i18nService } from '../services/i18n.service.js';
+import { loginService } from '@/services/login.service.js';
 
-import {main} from '../main.js'
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    lang:'en'
-  },
-  getters:{
-    lang(state){
-      return state.lang
+    state: {
+        lang: 'en',
+        // isAdmin: true,
+        user: null,
     },
-    direction(state){
-      if(state.lang==='he')return{direction:'rtl'}
-        return{direction:'ltr'} 
-    } 
-  },
-  mutations: {
-    setLang(state, {lang}){
-      i18nService.setLang(lang)
-      state.lang = lang
-    }
-  },
-  actions: {
-  },
-  modules: {
-    toyStore
-  }
-})
+    getters: {
+        lang(state) {
+            return state.lang;
+        },
+        direction(state) {
+            if (state.lang === 'he') return { direction: 'rtl', 'text-align': 'right' };
+            return { direction: 'ltr', 'text-align': 'left' };
+        },
+        isAdmin(state) {
+            return state.user?.isAdmin || false;
+        },
+        username(state){
+            const admin = (state.user?.isAdmin)? 'admin ' : ''
+            return admin +( state.user?.username || 'Guest');
+        },
+        user(state){
+            return state.user;
+        }
+    },
+    mutations: {
+        setLang(state, { lang }) {
+            i18nService.setLang(lang);
+            state.lang = lang;
+        },
+        setUser(state, {user}){
+            state.user = user;
+        }
+    },
+    actions: {
+        async signupUser(context, { fullname, username, password, isAdmin }) {
+            try {
+                const user = await loginService.signup(fullname, username, password, isAdmin);
+                context.commit({type:'setUser', user})
+                
+            } catch (err) {
+                throw err
+            }
+        },
+        async loginUser(context, { username, password }) {
+            try {
+                const user = await loginService.login(username, password);
+                context.commit({type:'setUser', user})
+
+            } catch (err) {
+                throw err 
+            }
+        },
+        async logout(context){
+            try{
+                await loginService.logout();
+                context.commit({type:'setUser', user:null})
+            }catch (err) {
+                throw err 
+            }
+        }
+    },
+    modules: {
+        toyStore,
+    },
+});

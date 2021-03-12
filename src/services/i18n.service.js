@@ -22,7 +22,10 @@ const messages = {
             priceSymb:'$',
             'created-at':"Created at",
             back:'Back',
-            save:'Save'
+            save:'Save',
+            logout:'Logout',
+            login:'login',
+
         },
     },
     he: {
@@ -44,7 +47,10 @@ const messages = {
             priceSymb:'₪',
             'created-at':"נוצר ב",
             back:'חזרה',
-            save:'שמור'
+            save:'שמור',
+            logout:'יציאה',
+            login:'הרשמה',
+
         },
     },
 };
