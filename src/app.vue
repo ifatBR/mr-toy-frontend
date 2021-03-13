@@ -1,10 +1,13 @@
 <template>
-  <div id="app" >
+  <div id="app">
     <nav>
       <div class="flex align-center">
         <h2>Hello {{ username }}</h2>
       </div>
-      <div class="links-container flex align-center justify-center" :style="direction">
+      <div
+        class="links-container flex align-center justify-center"
+        :style="direction"
+      >
         <router-link to="/toy">{{ $t("message.toys") }}</router-link> |
         <router-link to="/dashboard">{{ $t("message.dashboard") }}</router-link>
         |
@@ -13,7 +16,7 @@
         <router-link to="/login">{{ $t("message.login") }}</router-link>
       </div>
       <div class="ctrls-container flex align-center">
-        <button @click="logout" class="logout">
+        <button v-if="isUserLoggedIn" @click="logout" class="logout">
           {{ $t("message.logout") }}
         </button>
         <div class="lang-container">
@@ -35,6 +38,7 @@ export default {
   data() {
     return {
       lang: this.$store.getters.lang,
+      isUserLoggedIn: this.$store.getters.user,
     };
   },
   created() {
@@ -47,7 +51,7 @@ export default {
     async logout() {
       try {
         await this.$store.dispatch({ type: "logout" });
-        this.$router.push('/')
+        this.$router.push("/");
       } catch (err) {
         userMsg("Can't logout, try again alter");
       }
@@ -64,6 +68,11 @@ export default {
       return this.$store.getters.direction;
     },
   },
+  watch:{
+    '$store.state.user'(user){
+      this.isUserLoggedIn = user;
+    }
+  }
 };
 </script>
 

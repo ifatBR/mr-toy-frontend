@@ -25,6 +25,10 @@ const messages = {
             save:'Save',
             logout:'Logout',
             login:'login',
+            'add-review':'Add review',
+            reviews:'Reviews',
+            older:'Older',
+            newer:'Newer'
 
         },
     },
@@ -50,6 +54,10 @@ const messages = {
             save:'שמור',
             logout:'יציאה',
             login:'הרשמה',
+            'add-review':'הוסף חוות דעת',
+            reviews:'חוות דעת',
+            older:'ישן יותר',
+            newer:'חדש יותר'
 
         },
     },

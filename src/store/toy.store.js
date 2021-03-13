@@ -1,3 +1,4 @@
+import { reviewService } from '../services/review.service.js';
 import { toyService } from '../services/toy.service.js';
 export const toyStore = {
     state: {
@@ -94,6 +95,7 @@ export const toyStore = {
         saveReview(context, {review,toy}){
             console.log(review);
             console.log(toy);
+            reviewService.save()
         }
     },
 };

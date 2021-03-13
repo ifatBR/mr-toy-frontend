@@ -70,6 +70,12 @@ export default new Vuex.Store({
             }catch (err) {
                 throw err 
             }
+        },
+        async addReviewToUser(context, {review}){
+            const user = context.state.user;
+            if(!user.reviews) user.reviews=[];
+            user.reviews.push(review)
+            loginService.update(user)
         }
     },
     modules: {

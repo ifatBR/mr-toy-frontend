@@ -3,7 +3,8 @@ import { httpService } from './http.service.js';
 export const loginService = {
     login,
     signup,
-    logout
+    logout,
+    update
 };
 
 function login(username, password) {
@@ -27,3 +28,8 @@ function logout(){
     .catch((err) => {throw err});
 
 }
+
+function update(user) {
+    return httpService.put(`user/${user._id}`, user);
+}
+

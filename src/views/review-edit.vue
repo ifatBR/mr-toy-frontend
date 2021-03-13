@@ -7,16 +7,26 @@
   >
     <h2>{{ toyToEdit.name }} <span>review</span></h2>
     <div class="review-edit-input">
-      <label>rating: </label>
-      <!-- maybe rating stars -->
-      <input
-        type="number"
-        min="0"
-        max="5"
-        v-model.number="reviewToEdit.rating"
-      />
+      <div class="flex">
+        <label>Rating: </label>
+        <ul class="review-rating clean-list flex">
+          <li
+            v-for="star in 5"
+            @click="setRating(star)"
+            :class="{ fill: star <= reviewToEdit.rating }"
+            :key="'starEdit_' + star"
+          ></li>
+        </ul>
+      </div>
+
       <label>Your review:</label>
-      <textarea v-model="reviewToEdit.txt" cols="50" rows="15" style="resize: none"></textarea>
+      <textarea
+        v-model="reviewToEdit.txt"
+        cols="30"
+        rows="8"
+        maxlength="250"
+        style="resize: none"
+      ></textarea>
     </div>
 
     <div class="btn-review flex column align-center justify-center">
@@ -39,38 +49,53 @@ export default {
     return {
       toyToEdit: null,
       reviewToEdit: reviewService.getEmptyReview(),
+      rating: 5,
     };
   },
   created() {
     const toyId = this.$route.params.toyId;
+    if(!this.$store.getters.user) {
+      this.$router.push('/details/'+toyId)
+      showMsg('Login to add reviews', 'danger')
+    }
     toyService
       .getById(toyId)
       .then((toy) => (this.toyToEdit = JSON.parse(JSON.stringify(toy))));
   },
   methods: {
-    save() {
+    async save() {
       if (!this.reviewToEdit.txt) {
-          showMsg("Review has no text", 'danger')
-          return
-      };
+        showMsg("Review has no text", "danger");
+        return;
+      }
       this.reviewToEdit.createdAt = Date.now();
       this.addReviewToToy();
-      this.$store
-        .dispatch({
-          type: "saveReview",
-          toy: this.toyToEdit,
-          review: this.reviewToEdit,
-        })
-        .then(() => {
-          this.reviewToEdit = reviewService.getEmptyReview();
-          this.$router.push("/details/" + this.toyToEdit._id);
-          showMsg("Saved review");
-        })
-        .catch((err) => showMsg("Can't save toy", danger));
+      try {
+        await this.$store.dispatch({ type: "saveToy", toy: this.toyToEdit });
+        const { txt, rating, createdAt } = this.reviewToEdit;
+        const userReview = {
+          txt,
+          rating,
+          createdAt,
+          toyId: this.toyToEdit._id,
+        };
+        await this.$store.dispatch({
+          type: "addReviewToUser",
+          review: userReview,
+        });
+        this.reviewToEdit = reviewService.getEmptyReview();
+        this.$router.push("/details/" + this.toyToEdit._id);
+        showMsg("Saved review");
+      } catch (err) {
+        showMsg("Can't save review", danger);
+      }
     },
     addReviewToToy() {
       if (!this.toyToEdit.reviews) this.toyToEdit.reviews = [];
       this.toyToEdit.reviews.push(this.reviewToEdit);
+    },
+    setRating(rating) {
+      this.reviewToEdit.rating = rating;
     },
   },
 
@@ -79,10 +104,11 @@ export default {
       return this.$store.getters.direction;
     },
     loggedInUser() {
+      console.log('user',this.$store.getters.user);
       return true; //TODO: check if it works
-      console.log(this.$store.getters.user);
       return this.$store.getters.user;
     },
   },
 };
 </script>
+

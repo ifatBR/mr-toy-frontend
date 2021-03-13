@@ -1,0 +1,17 @@
+.review-rating li{
+    font-size: 1.3em;
+    &::after {
+        content: '★';
+        color: rgb(184, 184, 184);
+    }
+    &.fill::after {
+
+      color: rgb(255, 208, 0);
+  }
+}
+
+textarea{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:1em;
+}
+
