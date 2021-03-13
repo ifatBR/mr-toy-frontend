@@ -80,7 +80,7 @@ export const toyStore = {
                 .then(() => {
                     context.commit(payload);
                 })
-                .then(() => context.dispatch('loadToys'))
+                .then(() => {context.dispatch('loadToys')})
                 .catch((err) => {
                     console.log('Store: Cannot remove toy', err);
                     throw new Error('Cannot remove toy');
@@ -92,10 +92,8 @@ export const toyStore = {
             context.dispatch({type:'loadToys'})
                 .then(() => context.filterBy.pageDiff = 0)
         },
-        saveReview(context, {review,toy}){
-            console.log(review);
-            console.log(toy);
-            reviewService.save()
+        saveReview(context, {review,toyId}){
+            reviewService.save(review,toyId)
         }
     },
 };

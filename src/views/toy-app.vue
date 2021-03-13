@@ -28,13 +28,15 @@ import toyList from "@/cmps/toy-list.vue";
 import loader from "@/cmps/loader.vue";
 import toyFilter from "@/cmps/toy-filter.vue";
 import userMsg from "@/cmps/user-msg.vue";
+import { showMsg } from "../services/eventBus.service.js";
 
 export default {
   name: "toyApp",
 
   methods: {
-    remove(toyId) {
-      this.$store.dispatch({ type: "removeToy", toyId });
+    async remove(toyId) {
+      await this.$store.dispatch({ type: "removeToy", toyId });
+      showMsg("Toy removed");
     },
     changePage(diff) {
       const filterBy = { ...this.$store.getters.filterBy };

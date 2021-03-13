@@ -9,7 +9,7 @@
       <label>{{ $t("message.toy-name") }}: </label
       ><input type="text" v-model="toyToEdit.name" required/>
       <label>{{ $t("message.price") }} ({{$t("message.priceSymb")}}): </label
-      ><input type="number" v-model.number="price" value="formattedPrice" required/>
+      ><input type="number" min="0" v-model.number="price" value="formattedPrice" required/>
       <label>{{ $t("message.type") }}:</label>
       <select v-model="toyToEdit.type" required>
         <option :value="type" v-for="type in types" :key="type + 'e'">
@@ -69,7 +69,7 @@ export default {
           this.$router.push("/toy");
           this.toyToEdit._id ? showMsg("Saved changes") : showMsg("Toy added");
         })
-        .catch((err) => showMsg("Can't save toy", danger));
+        .catch((err) => showMsg("Can't save toy", 'danger'));
     },
   },
 

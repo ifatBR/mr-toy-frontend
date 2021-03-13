@@ -1,6 +1,9 @@
+import {httpService} from './http.service.js'
+
+
 export const reviewService = {
     getEmptyReview,
-
+    save
 };
 
 function getEmptyReview() {
@@ -13,6 +16,10 @@ function getEmptyReview() {
     };
 }
 
+function save(review, toyId){
+    return httpService.post(`toy/review/${toyId}`, {review})
+        // .post(`toy/review/${toyId}`, review )
+}
 // const userReviews = [
 //     {
 //         "txt": "ok",

@@ -58,8 +58,10 @@ export default {
       return new Date(this.toy.createdAt).toLocaleDateString("he-IS");
     },
     imgSrc() {
-      const num = utilService.getRandomInt(1, 17);
-      return require(`@/assets/imgs/${num}.jpg`);
+      return require(`@/assets/imgs/${this.toy.url}`);
+
+      // const num = utilService.getRandomInt(1, 17);
+      // return require(`@/assets/imgs/${num}.jpg`);
     },
     direction() {
       return this.$store.getters.direction;

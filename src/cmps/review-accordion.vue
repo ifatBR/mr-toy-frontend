@@ -2,7 +2,8 @@
   <section class="flex column space-between">
     <div>
       <h2>{{ $t("message.reviews") }}</h2>
-      <el-collapse class="review-container" v-model="activeName" accordion>
+      <h3 v-if="!reviews">No reviews for this product</h3>
+      <el-collapse v-else class="review-container" v-model="activeName" accordion>
         <el-collapse-item
           v-for="(review, index) in reviewsToShow"
           :title="reviewTitle(index)"
@@ -35,7 +36,7 @@ export default {
     };
   },
   created() {
-    this.setReviewsToShow();
+    if(this.reviews) this.setReviewsToShow();
   },
   methods: {
     reviewTitle(idx) {
@@ -68,9 +69,11 @@ export default {
   },
   computed: {
     isFirstReview() {
+      if(!this.reviews) return { disabled:true};
       return { disabled: this.startIdx === 0 };
     },
     isLastReview() {
+      if(!this.reviews) return { disabled:true};
       return { disabled: this.reviews.length === this.startIdx + this.reviewsToShow.length };
     },
   },

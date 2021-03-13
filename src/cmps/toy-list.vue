@@ -19,7 +19,7 @@ export default {
   },
   methods:{
     remove(toyId){
-      this.$emit('remove',toyId);
+      this.$emit('remove',toyId); 
       }
   },
   components: {

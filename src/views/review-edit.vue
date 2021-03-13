@@ -54,9 +54,9 @@ export default {
   },
   created() {
     const toyId = this.$route.params.toyId;
-    if(!this.$store.getters.user) {
-      this.$router.push('/details/'+toyId)
-      showMsg('Login to add reviews', 'danger')
+    if (!this.$store.getters.user) {
+      this.$router.push("/details/" + toyId);
+      showMsg("Login to add reviews", "danger");
     }
     toyService
       .getById(toyId)
@@ -68,10 +68,17 @@ export default {
         showMsg("Review has no text", "danger");
         return;
       }
+
       this.reviewToEdit.createdAt = Date.now();
+      this.reviewToEdit.userId = this.loggedInUser._id;
+      this.reviewToEdit.username = this.loggedInUser.username;
       this.addReviewToToy();
       try {
-        await this.$store.dispatch({ type: "saveToy", toy: this.toyToEdit });
+        await this.$store.dispatch({
+          type: "saveReview",
+          review: this.reviewToEdit,
+          toyId: this.toyToEdit._id,
+        });
         const { txt, rating, createdAt } = this.reviewToEdit;
         const userReview = {
           txt,
@@ -79,15 +86,17 @@ export default {
           createdAt,
           toyId: this.toyToEdit._id,
         };
+
         await this.$store.dispatch({
           type: "addReviewToUser",
           review: userReview,
         });
+
         this.reviewToEdit = reviewService.getEmptyReview();
         this.$router.push("/details/" + this.toyToEdit._id);
         showMsg("Saved review");
       } catch (err) {
-        showMsg("Can't save review", danger);
+        showMsg("Can't save review", "danger");
       }
     },
     addReviewToToy() {
@@ -104,8 +113,6 @@ export default {
       return this.$store.getters.direction;
     },
     loggedInUser() {
-      console.log('user',this.$store.getters.user);
-      return true; //TODO: check if it works
       return this.$store.getters.user;
     },
   },

@@ -41,8 +41,9 @@ export default {
       return this.$store.getters.direction;
     },
     imgSrc() {
-      const num = utilService.getRandomInt(1, 17);
-      return require(`@/assets/imgs/${num}.jpg`);
+      return require(`@/assets/imgs/${this.toy.url}`);
+      // const num = utilService.getRandomInt(1, 17);
+      // return require(`@/assets/imgs/${num}.jpg`);
     },
     isAdmin() {
       return this.$store.getters.isAdmin;
