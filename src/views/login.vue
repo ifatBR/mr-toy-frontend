@@ -1,47 +1,61 @@
 <template>
-  <section class="main-container flex column justify-center align-center">
+  <section
+    class="main-container flex column justify-center align-center"
+    :style="direction"
+  >
     <div v-if="loggedInUser">
       <h2>{{ loggedInUser.username }} is logged in</h2>
     </div>
     <form v-else-if="isLoginPage" @submit.prevent="loginUser" class="login">
       <label class="flex space-between"
-        >User name: <input type="text" v-model="username" required
+        >{{ $t("message.username") }}:
+        <input type="text" v-model="username" required
       /></label>
       <label class="flex space-between"
-        >Password: <input type="password" v-model="password" required
+        >{{ $t("message.password") }}:
+        <input type="password" v-model="password" required
       /></label>
-
-      <button class="btn confirm loginOps">Login</button>
-      <button
-        type="button"
-        v-if="isLoginPage"
-        @click="toggleIsLoginPage"
-        class="btn back loginToggle"
-      >
-        Dont have a user? Signup
-      </button>
+      <div class="flex space-between">
+        <button class="btn confirm loginOps">{{ $t("message.login") }}</button>
+        <button
+          type="button"
+          v-if="isLoginPage"
+          @click="toggleIsLoginPage"
+          class="btn back loginToggle"
+        >
+          Dont have a user? Signup
+        </button>
+      </div>
     </form>
 
     <form v-else @submit.prevent="signupUser" class="signup">
       <label class="flex space-between"
-        >Full name: <input type="text" v-model="fullname" required/>
-        </label>
-      <label class="flex space-between"
-        >User name: <input type="text" v-model="username" required/>
-        </label>
-      <label class="flex space-between"
-        >Password: <input type="password" v-model="password" required/>
-        </label>
-      <label class="flex space-between">Is admin: 
-        <input type="checkbox" v-model="isAdmin" class="switch"/>
+        >{{ $t("message.fullname") }}:
+        <input type="text" v-model="fullname" required />
       </label>
-      <button class="btn confirm loginOps">Signup</button>
-      <button type="button"
+      <label class="flex space-between"
+        >{{ $t("message.username") }}:
+        <input type="text" v-model="username" required />
+      </label>
+      <label class="flex space-between"
+        >{{ $t("message.password") }}:
+        <input type="password" v-model="password" required />
+      </label>
+      <label class="flex space-between"
+        >{{ $t("message.admin") }}?
+        <input type="checkbox" v-model="isAdmin" class="switch" />
+      </label>
+      <div class="flex space-between">
+      <button class="btn confirm loginOps">{{ $t("message.signup") }}</button>
+      <button
+        type="button"
         v-if="!isLoginPage"
         @click="toggleIsLoginPage"
-        class="btn back loginToggle">
+        class="btn back loginToggle"
+      >
         Already signed up? Login
       </button>
+      </div>
     </form>
   </section>
 </template>
@@ -100,6 +114,9 @@ export default {
   computed: {
     loggedInUser() {
       return this.$store.getters.user;
+    },
+    direction() {
+      return this.$store.getters.direction;
     },
   },
 };

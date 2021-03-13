@@ -28,7 +28,13 @@ const messages = {
             'add-review':'Add review',
             reviews:'Reviews',
             older:'Older',
-            newer:'Newer'
+            newer:'Newer',
+            username:'User name',
+            fullname:'Full name',
+            password:'Password',
+            login:'Login',
+            signup:'Signup',
+            'admin':'Admin'
 
         },
     },
@@ -57,7 +63,13 @@ const messages = {
             'add-review':'הוסף חוות דעת',
             reviews:'חוות דעת',
             older:'ישן יותר',
-            newer:'חדש יותר'
+            newer:'חדש יותר',
+            username:'שם משתמש',
+            fullname:'שם מלא',
+            password:'סיסמא',
+            login:'הכנס',
+            signup:'הרשם',
+            'admin':'מנהל'
 
         },
     },
