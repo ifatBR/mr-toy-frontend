@@ -7,6 +7,8 @@ import dashboard from '../views/dashboard.vue'
 import toyBranches from '../views/toy-branches.vue'
 import login from '../views/login.vue'
 import reviewEdit from'@/views/review-edit.vue'
+import userProfile from'@/views/user-profile.vue'
+import review from '@/views/review.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -49,6 +51,16 @@ const routes = [
     path: '/branches',
     name: 'branches',
     component: toyBranches
+  },
+  {
+    path: '/user',
+    name: 'user',
+    component: userProfile
+  },
+  {
+    path: '/review',
+    name: 'review',
+    component: review
   }
 ]
 

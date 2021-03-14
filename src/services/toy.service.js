@@ -1,4 +1,4 @@
-// import { utilService } from './util.service.js';
+import { utilService } from './util.service.js';
 import {httpService} from './http.service.js'
 // import axios from 'axios';
 
@@ -25,7 +25,7 @@ function setFilter(filterBy) {
 }
 
 function query() {
-    const filterStr = _formatFilter(gFilterBy)
+    const filterStr = utilService.formatFilter(gFilterBy)
     return httpService.get(`toy/?${filterStr}`)
     // return axios
     //     .get(TOY_URL, { params: gFilterBy })
@@ -79,12 +79,7 @@ function getEmptyToy(name = '', price = 100, type, createdAt) {
     };
 }
 
-function _formatFilter(filterBy){
-    const filterKeys = Object.keys(filterBy);
-    return filterKeys.map(key => `${key}=${filterBy[key]}`).join('&')
 
-
-}
 
 // // Create Test Data:
 // function _createToys() {

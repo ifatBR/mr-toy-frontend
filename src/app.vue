@@ -11,9 +11,11 @@
         <router-link to="/toy">{{ $t("message.toys") }}</router-link> |
         <router-link to="/dashboard">{{ $t("message.dashboard") }}</router-link>
         |
-        <router-link to="/branches">{{ $t("message.branches") }}</router-link
-        >|
-        <router-link to="/login">{{ $t("message.login") }}</router-link>
+        <router-link to="/branches">{{ $t("message.branches") }}</router-link>|
+        <router-link to="/login">{{ $t("message.login") }}</router-link>|
+        <router-link to="/review">Reviews</router-link>
+        <div v-if="isUserLoggedIn">|</div>
+        <router-link v-if="isUserLoggedIn" to="/user"> {{ $t("message.user") }}</router-link>
       </div>
       <div class="ctrls-container flex align-center">
         <button v-if="isUserLoggedIn" @click="logout" class="logout">

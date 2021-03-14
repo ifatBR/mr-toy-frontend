@@ -1,0 +1,28 @@
+.user-profile {
+    h2 {
+        color: $color6;
+        font-size: 1.5em;
+    }
+
+    .user-reviews {
+        li {
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            color: $color3;
+            font-size: 1.1em;
+        }
+
+        h3 {
+            color: $color5;
+            font-size: 0.9em;
+            // font-weight:400;
+        }
+
+        p {
+            color: $color5;
+        }
+
+    }
+}

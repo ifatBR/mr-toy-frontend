@@ -25,13 +25,14 @@ import reviewPreview from "@/cmps/review-preview.vue";
 export default {
   props: {
     reviews: Array,
+    pageSize:Number
   },
   data() {
     return {
       startIdx: 0,
       activeName: "1",
       pageIdx:0,
-      pageSize: 3,
+      // pageSize: 3,
       reviewsToShow: null,
     };
   },

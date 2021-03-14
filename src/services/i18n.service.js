@@ -24,7 +24,7 @@ const messages = {
             back:'Back',
             save:'Save',
             logout:'Logout',
-            login:'login',
+            login:'Login',
             'add-review':'Add review',
             reviews:'Reviews',
             older:'Older',
@@ -32,9 +32,9 @@ const messages = {
             username:'User name',
             fullname:'Full name',
             password:'Password',
-            login:'Login',
             signup:'Signup',
-            'admin':'Admin'
+            'admin':'Admin',
+            user:'Profile'
 
         },
     },
@@ -67,9 +67,9 @@ const messages = {
             username:'שם משתמש',
             fullname:'שם מלא',
             password:'סיסמא',
-            login:'הכנס',
             signup:'הרשם',
-            'admin':'מנהל'
+            'admin':'מנהל',
+            user:'פרופיל'
 
         },
     },

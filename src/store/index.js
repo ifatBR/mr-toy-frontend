@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import { toyStore } from './toy.store.js';
 import { i18nService } from '../services/i18n.service.js';
 import { loginService } from '@/services/login.service.js';
+import { userService } from '@/services/user.service.js';
 
 Vue.use(Vuex);
 
@@ -71,11 +72,12 @@ export default new Vuex.Store({
                 throw err 
             }
         },
-        async addReviewToUser(context, {review}){
-            const user = context.state.user;
-            if(!user.reviews) user.reviews=[];
-            user.reviews.push(review)
-            loginService.update(user)
+        async getUserReviews(context){
+            try{
+                return userService.getReviews(context.state.user._id)                
+            }catch(err){
+                throw err
+            }
         }
     },
     modules: {

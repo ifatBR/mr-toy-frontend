@@ -71,25 +71,11 @@ export default {
 
       this.reviewToEdit.createdAt = Date.now();
       this.reviewToEdit.userId = this.loggedInUser._id;
-      this.reviewToEdit.username = this.loggedInUser.username;
-      this.addReviewToToy();
+      this.reviewToEdit.toyId = this.toyToEdit._id;
       try {
         await this.$store.dispatch({
           type: "saveReview",
           review: this.reviewToEdit,
-          toyId: this.toyToEdit._id,
-        });
-        const { txt, rating, createdAt } = this.reviewToEdit;
-        const userReview = {
-          txt,
-          rating,
-          createdAt,
-          toyId: this.toyToEdit._id,
-        };
-
-        await this.$store.dispatch({
-          type: "addReviewToUser",
-          review: userReview,
         });
 
         this.reviewToEdit = reviewService.getEmptyReview();
@@ -98,10 +84,6 @@ export default {
       } catch (err) {
         showMsg("Can't save review", "danger");
       }
-    },
-    addReviewToToy() {
-      if (!this.toyToEdit.reviews) this.toyToEdit.reviews = [];
-      this.toyToEdit.reviews.push(this.reviewToEdit);
     },
     setRating(rating) {
       this.reviewToEdit.rating = rating;

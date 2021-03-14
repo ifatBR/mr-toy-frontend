@@ -29,29 +29,34 @@
     <div class="img-container">
       <img class="details-img" :src="imgSrc" />
     </div>
-    <review-accordion class="review-accordion" :reviews="toy.reviews" />
+    <review-list v-if="reviews" class="review-accordion" :reviews="reviews" :pageSize="3"/>
   </section>
 </template>
 
 <script>
 import { toyService } from "../services/toy.service.js";
-import { utilService } from "../services/util.service.js";
-import reviewAccordion from "@/cmps/review-accordion.vue";
+import {reviewService} from '../services/review.service.js'
+import reviewList from "@/cmps/review-list.vue";
 export default {
   name: "toyDetails",
   data() {
     return {
       toy: null,
+      reviews : null
     };
   },
   created() {
     const toyId = this.$route.params.toyId;
     toyService.getById(toyId).then((toy) => (this.toy = toy));
+    this.setReviews(toyId);
   },
   methods: {
     addReview() {
       this.$router.push("/details/review/" + this.toy._id);
     },
+    async setReviews(toyId){
+      this.reviews = await reviewService.query({toyId})
+    }
   },
   computed: {
     date() {
@@ -59,9 +64,6 @@ export default {
     },
     imgSrc() {
       return require(`@/assets/imgs/${this.toy.url}`);
-
-      // const num = utilService.getRandomInt(1, 17);
-      // return require(`@/assets/imgs/${num}.jpg`);
     },
     direction() {
       return this.$store.getters.direction;
@@ -73,9 +75,10 @@ export default {
         "locale", price.toLocaleString(locale, { style: "currency", currency })
       );
     },
+
   },
   components: {
-    reviewAccordion,
+    reviewList,
   },
 };
 </script>

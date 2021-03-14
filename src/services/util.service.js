@@ -27,8 +27,15 @@ function debounce(func, wait, immediate) {
     };
 }
 
+function formatFilter(filterBy){
+    if(!filterBy) return '';
+    const filterKeys = Object.keys(filterBy);
+    return filterKeys.map(key => `${key}=${filterBy[key]}`).join('&')
+}
+
 export const utilService = {
     makeId,
     getRandomInt,
-    debounce
+    debounce,
+    formatFilter
 };

@@ -1,59 +1,34 @@
 import {httpService} from './http.service.js'
-
-
+import {utilService} from './util.service.js'
 export const reviewService = {
     getEmptyReview,
-    save
+    save,
+    query
 };
 
 function getEmptyReview() {
     return {
-        username: null,
+        id: null,
         userId:null,
+        toyId:null,
         txt: '',
         rating: 1,
         createdAt: null,
     };
 }
 
-function save(review, toyId){
-    return httpService.post(`toy/review/${toyId}`, {review})
-        // .post(`toy/review/${toyId}`, review )
+async function save(review){
+    review.id = utilService.makeId();
+    return httpService.post(`review/`, review)
 }
-// const userReviews = [
-//     {
-//         "txt": "ok",
-//         "rating": 3,
-//         "createdAt": 123456789,
-//         "toyId": "604a213e410faf7b210b0ddf",
-//     },
-//     {
-//         "txt": "lovley",
-//         "rating": 5,
-//         "createdAt": 123456789,
-//         "toyId": "604a213e410faf7b210b0dd8",
-//     },
-//     {
-//         "txt":"ugly",
-//         "rating": 1,
-//         "createdAt": 123456789,
-//         "toyId": "604a213e410faf7b210b0dda",
-//     },
-// ];
 
-// const toyReviews = [
-//     {
-//         "username": 'kuki',
-//         "userId": '604b1df4d8ac0539a0f052dd',
-//         "txt": "good",
-//         "rating": 3,
-//         "createdAt": 123456789
-//     },
-//     {
-//         "username": 'muki',
-//         "userId": "604b20fed8ac0539a0f052de",
-//         "txt": "horrible",
-//         "rating": 0,
-//         "createdAt": 123456789
-//     }
-// ];
+async function query(filterBy){
+    try{
+    const filterStr = utilService.formatFilter(filterBy)
+    const reviews =  await httpService.get('review/?'+filterStr)
+    return reviews
+    }catch(err){
+        throw err
+    }
+}
+
