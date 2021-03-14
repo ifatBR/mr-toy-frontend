@@ -1,7 +1,7 @@
 <template>
   <section class="toy-preview" :style="direction">
     <div class="img-container">
-      <img class="preview-img" :src="imgSrc" />
+      <img v-if="imgSrc" class="preview-img" :src="imgSrc" />
     </div>
     <div class="info-container flex column justify-center align-start">
       <h3>
@@ -41,9 +41,9 @@ export default {
       return this.$store.getters.direction;
     },
     imgSrc() {
+
+      if(this.toy.url.includes('http'))return this.toy.url
       return require(`@/assets/imgs/${this.toy.url}`);
-      // const num = utilService.getRandomInt(1, 17);
-      // return require(`@/assets/imgs/${num}.jpg`);
     },
     isAdmin() {
       return this.$store.getters.isAdmin;

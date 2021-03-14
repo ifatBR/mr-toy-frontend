@@ -2,36 +2,48 @@
   <form
     v-if="toyToEdit"
     @submit.prevent="save"
-    class="toy-edit"
+    class="toy-edit flex"
     :style="direction"
   >
-    <div class="edit-input">
-      <label>{{ $t("message.toy-name") }}: </label
-      ><input type="text" v-model="toyToEdit.name" required/>
-      <label>{{ $t("message.price") }} ({{$t("message.priceSymb")}}): </label
-      ><input type="number" min="0" v-model.number="price" value="formattedPrice" required/>
-      <label>{{ $t("message.type") }}:</label>
-      <select v-model="toyToEdit.type" required>
-        <option :value="type" v-for="type in types" :key="type + 'e'">
-          {{ type }}
-        </option>
-      </select>
+    <div>
+      <div class="edit-input">
+        <label>{{ $t("message.toy-name") }}: </label
+        ><input type="text" v-model="toyToEdit.name" required />
+        <label
+          >{{ $t("message.price") }} ({{ $t("message.priceSymb") }}): </label
+        ><input
+          type="number"
+          min="0"
+          v-model.number="price"
+          value="formattedPrice"
+          required
+        />
+        <label>{{ $t("message.type") }}:</label>
+        <select v-model="toyToEdit.type" required>
+          <option :value="type" v-for="type in types" :key="type + 'e'">
+            {{ type }}
+          </option>
+        </select>
 
-      <label>{{ $t("message.in-stock") }}:</label>
-      <input
-        class="switch"
-        type="checkbox"
-        v-model="toyToEdit.inStock"
-        :checked="isInStock"
-      />
+        <label>{{ $t("message.in-stock") }}:</label>
+        <input
+          class="switch"
+          type="checkbox"
+          v-model="toyToEdit.inStock"
+          :checked="isInStock"
+        />
+      </div>
+      <div class="btn-edit flex column align-center justify-center">
+        <!-- <validate/> -->
+        <button class="btn save confirm">{{ $t("message.save") }}</button>
+        <router-link to="/toy" class="btn back">{{
+          $t("message.back")
+        }}</router-link>
+      </div>
     </div>
-    <div class="btn-edit flex column align-center justify-center">
-      <!-- <validate/> -->
-      <button class="btn save confirm">{{ $t("message.save") }}</button>
-      <router-link to="/toy" class="btn back">{{
-        $t("message.back")
-      }}</router-link>
-    </div>
+
+    <img-upload v-if="!imgUrl" @addImg="addImg"/>
+    <img v-if="imgUrl" :src="imgUrl"/>
   </form>
 </template>
 
@@ -39,6 +51,7 @@
 import { toyService } from "../services/toy.service.js";
 import { showMsg } from "../services/eventBus.service.js";
 import validate from "@/cmps/validate.vue";
+import imgUpload from "@/cmps/img-upload.cmp.vue";
 export default {
   name: "toyEdit",
   props: {},
@@ -47,6 +60,7 @@ export default {
       toyToEdit: toyService.getEmptyToy(),
       types: null,
       price: null,
+      imgUrl:null
     };
   },
   created() {
@@ -69,8 +83,13 @@ export default {
           this.$router.push("/toy");
           this.toyToEdit._id ? showMsg("Saved changes") : showMsg("Toy added");
         })
-        .catch((err) => showMsg("Can't save toy", 'danger'));
+        .catch((err) => showMsg("Can't save toy", "danger"));
     },
+    addImg(url){
+      console.log('url:', url)
+      this.toyToEdit.url = url;
+      this.imgUrl = url
+    }
   },
 
   computed: {
@@ -87,10 +106,10 @@ export default {
       const { multiplier } = this.$store.getters.getLocale;
       return this.toyToEdit.price * multiplier;
     },
-    unformattedPrice(){
+    unformattedPrice() {
       const { multiplier } = this.$store.getters.getLocale;
       return this.price / multiplier;
-    }
+    },
   },
   watch: {
     "$store.getters.lang"() {
@@ -99,6 +118,7 @@ export default {
   },
   components: {
     validate,
+    imgUpload,
   },
 };
 </script>
