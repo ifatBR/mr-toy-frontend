@@ -30,6 +30,7 @@
       <img class="details-img" :src="imgSrc" />
     </div>
     <review-list v-if="reviews" class="review-accordion" :reviews="reviews" :pageSize="3"/>
+    <chat-room/>
   </section>
 </template>
 
@@ -37,6 +38,7 @@
 import { toyService } from "../services/toy.service.js";
 import {reviewService} from '../services/review.service.js'
 import reviewList from "@/cmps/review-list.vue";
+import chatRoom from '@/cmps/chat-room.vue'
 export default {
   name: "toyDetails",
   data() {
@@ -79,6 +81,7 @@ export default {
   },
   components: {
     reviewList,
+    chatRoom
   },
 };
 </script>

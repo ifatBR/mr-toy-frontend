@@ -94,6 +94,6 @@ export const toyStore = {
         },
         saveReview(context, {review}){
             reviewService.save(review)
-        }
+        },
     },
 };

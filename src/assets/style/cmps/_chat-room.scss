@@ -1,0 +1,37 @@
+.chat-room{
+    position:fixed;
+    width:250px;
+    bottom:0;
+    right:5px;
+    background-color: #fff;
+    box-shadow: 2px 2px 7px rgba(146, 146, 146, 0.473);
+    h2{
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        text-align: center;  
+        background-color: $color3;
+        color:white;
+        margin-bottom:0; 
+        padding: 10px 5px;
+        font-size:1em;
+        cursor:pointer;
+        &:hover{
+            background-color: darken($color3,10%);
+        }
+    }
+    .chat-container{
+        height: 250px;
+        flex-grow:1;
+        padding: 0 10px;
+        color:$color5;
+        li{
+            line-height:1.35em
+        }
+        span{
+            color:$color3;
+        }
+    }
+    input{
+        flex-grow: 1;
+    }
+}
